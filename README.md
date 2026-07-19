@@ -28,26 +28,21 @@ Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
 
 ### Installation
 
-1. Navigate to the client directory:
-   ```bash
-   cd client
-   ```
-
-2. Install dependencies:
+1. Install dependencies:
    ```bash
    npm install
    ```
 
-3. Set up environment variables:
+2. Set up environment variables:
    Copy `.env.example` to `.env.local` and configure your API and Socket URLs.
    ```bash
    cp .env.example .env.local
    ```
    *(By default, it will connect to `http://localhost:4000`)*
 
-4. Run the development server:
+3. Run the development server:
    ```bash
    npm run dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
