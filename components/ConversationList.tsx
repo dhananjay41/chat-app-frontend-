@@ -16,7 +16,7 @@ export default function ConversationList() {
   const { byId, allIds } = useSelector((state: RootState) => state.conversations);
   const { availableUsers, userId: currentUserId } = useSelector((state: RootState) => state.auth);
   const { onlineUserIds } = useSelector((state: RootState) => state.presence);
-  const messagesState = useSelector((state: RootState) => state.messages.byConversationId);
+
 
   const [isCreating, setIsCreating] = useState(false);
 
