@@ -60,6 +60,7 @@ export const socketMiddleware: Middleware = (store) => {
         auth: { token },
         reconnectionDelay: 1000,
         reconnectionDelayMax: 5000,
+        transports: ['websocket'],
       });
 
       socket.on('connect', () => {
