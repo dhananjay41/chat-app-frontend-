@@ -28,9 +28,9 @@ export default function LoginPage() {
       <div className={styles.form} style={{ maxWidth: '600px', width: '100%' }}>
         <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-2)' }}>Select User</h2>
         <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: 'var(--space-6)' }}>
-          DEMO MODE: Choose a seeded user to log in. No password required.
+          Choose a seeded user to log in. No password required.
         </p>
-        
+
         {status === 'error' && (
           <p className={styles.error} style={{ textAlign: 'center', marginBottom: 'var(--space-4)' }}>
             Something went wrong. Please try selecting a user again.
