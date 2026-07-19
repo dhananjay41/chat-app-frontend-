@@ -1,0 +1,3 @@
+// Client store directory — Redux store, rootReducer, socketMiddleware
+// Will be populated in Milestone 2+
+export {};
