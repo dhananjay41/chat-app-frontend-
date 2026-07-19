@@ -7,12 +7,12 @@ import { RootState } from '../../store';
 export const fetchMessages = createAsyncThunk(
   'messages/fetch',
   async ({ conversationId, cursor }: { conversationId: string; cursor?: string | null }) => {
-    console.log('[DEBUG] fetchMessages API called:', { conversationId, cursor });
+
     const params = new URLSearchParams();
     if (cursor) params.append('cursor', cursor);
 
     const response = await apiClient.get(`/conversations/${conversationId}/messages?${params.toString()}`);
-    console.log('[DEBUG] fetchMessages API response:', response.data);
+
     return { ...response.data, conversationId };
   }
 );

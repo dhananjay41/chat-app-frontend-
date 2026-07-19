@@ -64,7 +64,7 @@ export const socketMiddleware: Middleware = (store) => {
       });
 
       socket.on('connect', () => {
-        console.log('[DEBUG] Socket connected!');
+
         isConnected = true;
         store.dispatch(setConnectionStatus(true));
         
@@ -116,7 +116,7 @@ export const socketMiddleware: Middleware = (store) => {
       });
 
       socket.on('message:new', (msg) => {
-        console.log('[DEBUG] Socket received message:new', msg);
+
         store.dispatch(messageReceived(msg));
         
         const state = store.getState() as RootState;
@@ -157,7 +157,7 @@ export const socketMiddleware: Middleware = (store) => {
     }
 
     if (action.type === 'socket/sendMessage') {
-      console.log('[DEBUG] socketMiddleware intercepting socket/sendMessage', action.payload);
+
       const state = store.getState() as RootState;
       const { userId } = state.auth;
       const msgPayload = {
@@ -173,9 +173,9 @@ export const socketMiddleware: Middleware = (store) => {
       store.dispatch(messageSendPending(msgPayload as any));
 
       if (isConnected && socket) {
-        console.log('[DEBUG] socketMiddleware emitting message:send');
+
         socket.emit('message:send', action.payload, (ack: { success: boolean; clientTempId: string; serverId: string; timestamp: string }) => {
-          console.log('[DEBUG] socketMiddleware received message:send ack', ack);
+
           if (ack && ack.success) {
             store.dispatch(
               messageAcked({

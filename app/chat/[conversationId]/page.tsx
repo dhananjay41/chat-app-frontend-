@@ -43,7 +43,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
     state.messages.byConversationId[conversationId]
   );
 
-  console.log('[DEBUG] ConversationPage render:', { conversationId, conversationState });
+
 
   const typingUsers = useSelector((state: RootState) =>
     state.presence.typingByConversation[conversationId] || []
@@ -54,7 +54,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
   useEffect(() => {
     if (!accessToken) return;
 
-    console.log('[DEBUG] ConversationPage useEffect connecting socket & fetching messages for:', conversationId);
+
 
     dispatch(connectSocket(accessToken));
     dispatch(fetchMessages({ conversationId }));
@@ -139,7 +139,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
         </div>
 
         <Composer conversationId={conversationId} onSend={(text, files) => {
-          console.log('[DEBUG] Composer onSend triggered:', { text, filesCount: files.length });
+
           dispatch(sendAsyncMessage({
             conversationId,
             body: text,

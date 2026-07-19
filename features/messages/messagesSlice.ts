@@ -52,7 +52,7 @@ const messagesSlice = createSlice({
   initialState,
   reducers: {
     messageSendPending(state, action: PayloadAction<Message>) {
-      console.log('[DEBUG] messageSendPending triggered:', action.payload);
+
       const msg = action.payload;
       ensureConversationState(state, msg.conversationId);
       const conv = state.byConversationId[msg.conversationId];
@@ -66,19 +66,19 @@ const messagesSlice = createSlice({
       state,
       action: PayloadAction<{ clientTempId: string; serverId: string; timestamp: string; conversationId: string }>
     ) {
-      console.log('[DEBUG] messageAcked triggered:', action.payload);
+
       const { clientTempId, serverId, timestamp, conversationId } = action.payload;
       ensureConversationState(state, conversationId);
       const conv = state.byConversationId[conversationId];
 
       if (conv.byId[clientTempId]) {
         if (conv.byId[serverId]) {
-          console.log('[DEBUG] messageAcked: msg already handled by messageReceived, deleting temp msg.');
+
           // messageReceived already handled it
           delete conv.byId[clientTempId];
           conv.allIds = conv.allIds.filter(id => id !== clientTempId);
         } else {
-          console.log('[DEBUG] messageAcked: updating temp msg to server msg.');
+
           const msg = conv.byId[clientTempId];
           msg.status = 'sent';
           msg._id = serverId;
@@ -94,18 +94,18 @@ const messagesSlice = createSlice({
           }
         }
       } else {
-        console.log('[DEBUG] messageAcked: temp message not found in state!');
+
       }
     },
     messageReceived(state, action: PayloadAction<Message>) {
-      console.log('[DEBUG] messageReceived triggered in slice:', action.payload);
+
       const msg = action.payload;
       ensureConversationState(state, msg.conversationId);
       const conv = state.byConversationId[msg.conversationId];
 
       if (msg._id && !conv.byId[msg._id]) {
         if (msg.clientTempId && conv.byId[msg.clientTempId]) {
-          console.log('[DEBUG] messageReceived: temp msg exists, replacing it.');
+
           delete conv.byId[msg.clientTempId];
           const index = conv.allIds.indexOf(msg.clientTempId);
           if (index !== -1) {
@@ -114,13 +114,13 @@ const messagesSlice = createSlice({
             conv.allIds.push(msg._id);
           }
         } else {
-          console.log('[DEBUG] messageReceived: adding new msg.');
+
           conv.allIds.push(msg._id);
         }
         const newMsg = { ...msg, status: 'sent' as const };
         conv.byId[msg._id] = newMsg;
       } else {
-        console.log('[DEBUG] messageReceived: msg already exists in state.');
+
       }
     },
     messageReadAcked(state, action: PayloadAction<{ conversationId: string; messageId: string; userId: string; timestamp?: string }>) {
@@ -154,7 +154,7 @@ const messagesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchMessages.fulfilled, (state, action) => {
-      console.log('[DEBUG] fetchMessages.fulfilled triggered:', action.payload.messages.length, 'messages');
+
       const { messages, cursor, hasMore, conversationId } = action.payload;
       ensureConversationState(state, conversationId);
       const conv = state.byConversationId[conversationId];
