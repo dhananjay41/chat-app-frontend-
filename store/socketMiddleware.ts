@@ -55,8 +55,9 @@ export const socketMiddleware: Middleware = (store) => {
 
       const { token } = action.payload;
       const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4000';
+      const cleanSocketUrl = socketUrl.replace(/\/$/, '');
 
-      socket = io(`${socketUrl}/chat`, {
+      socket = io(`${cleanSocketUrl}/chat`, {
         auth: { token },
         reconnectionDelay: 1000,
         reconnectionDelayMax: 5000,
