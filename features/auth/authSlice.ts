@@ -71,7 +71,7 @@ const authSlice = createSlice({
       state.avatarUrl = action.payload.avatarUrl || null;
     });
     builder.addCase(refresh.rejected, (state) => {
-      state.status = 'error';
+      state.status = 'idle'; // Not 'error', just unauthenticated
       state.userId = null;
       state.accessToken = null;
       state.displayName = null;

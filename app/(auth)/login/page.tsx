@@ -33,7 +33,7 @@ export default function LoginPage() {
         
         {status === 'error' && (
           <p className={styles.error} style={{ textAlign: 'center', marginBottom: 'var(--space-4)' }}>
-            Failed to connect to the server or select user.
+            Something went wrong. Please try selecting a user again.
           </p>
         )}
 
