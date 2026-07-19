@@ -1,3 +1,0 @@
-// Feature slices: auth, conversations, messages, drafts, uploads, presence
-// Will be populated in Milestone 2+
-export {};

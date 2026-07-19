@@ -1,3 +1,0 @@
-// Shared components: MessageBubble, Composer, Dropzone, ConversationList
-// Will be populated in Milestone 2+
-export {};
