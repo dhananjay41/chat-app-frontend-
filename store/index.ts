@@ -18,7 +18,7 @@ const storage = typeof window !== 'undefined' ? createWebStorage('local') : crea
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['drafts'], // §2.3: Only whitelist drafts slice
+  whitelist: ['drafts', 'auth'], // Persist auth to prevent logout on refresh
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
