@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useRef, use } from 'react';
+import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import styles from '../chat.module.css';
 import { AnimatePresence } from 'framer-motion';
 import { AppDispatch, RootState } from '../../../store';
 import { connectSocket, disconnectSocket, sendReadReceipt, joinRoom } from '../../../store/socketMiddleware';
@@ -38,6 +40,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
   const { conversationId } = resolvedParams;
 
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
   const { accessToken, userId } = useSelector((state: RootState) => state.auth);
   const conversationState = useSelector((state: RootState) =>
     state.messages.byConversationId[conversationId]
@@ -110,6 +113,12 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
   return (
     <DropzoneArea>
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div className={styles.mobileHeader}>
+          <button onClick={() => router.push('/chat')} className={styles.backButton}>
+            &#8592;
+          </button>
+          <span>Chat</span>
+        </div>
         <div
           style={{
             flex: 1,

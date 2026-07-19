@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
+import styles from './chat.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../store';
 import { fetchConversations } from '../../features/conversations/conversationsApi';
@@ -16,6 +17,8 @@ import { ForwardModal } from '../../components/ForwardModal';
 export default function ChatLayout({ children }: { children: React.ReactNode }) {
   const { status, accessToken, displayName, username, avatarUrl } = useSelector((state: RootState) => state.auth);
   const router = useRouter();
+  const params = useParams();
+  const hasConversation = !!params?.conversationId;
   const dispatch = useDispatch<AppDispatch>();
   const [isInitializing, setIsInitializing] = useState(true);
 
@@ -63,8 +66,8 @@ export default function ChatLayout({ children }: { children: React.ReactNode }) 
   return (
     <DndContext sensors={sensors} onDragStart={onDragStart} onDragOver={onDragOver} onDragEnd={onDragEnd} onDragCancel={onDragCancel}>
       <ConnectionBanner />
-      <div style={{ display: 'flex', height: '100vh', width: '100vw', overflow: 'hidden', background: 'var(--bg-main)', color: 'var(--text-primary)' }}>
-        <aside style={{ width: '300px', borderRight: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', background: 'var(--bg-surface)' }}>
+      <div className={styles.layout}>
+        <aside className={`${styles.sidebar} ${hasConversation ? styles.hiddenOnMobile : ''}`}>
           {/* User Profile Header */}
           <div style={{ padding: 'var(--space-4)', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
             <img 
@@ -94,7 +97,7 @@ export default function ChatLayout({ children }: { children: React.ReactNode }) 
           
           <ConversationList />
         </aside>
-        <main style={{ flex: 1, position: 'relative' }}>
+        <main className={`${styles.mainContent} ${!hasConversation ? styles.hiddenOnMobile : ''}`}>
           {children}
         </main>
       </div>
